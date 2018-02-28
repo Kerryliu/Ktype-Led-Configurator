@@ -20,30 +20,30 @@ const style = {
   }
 };
 
-class Button extends React.Component {
-  createButton(character) {
-    if(typeof KeyInfo[character].ledId === "undefined") {
+class Key extends React.Component {
+  createKey(element) {
+    if(typeof KeyInfo[element].ledId === "undefined") {
       return(<div/>);
     } else {
       return(
         <div style={style.keyWrapper}>
-          <RaisedButton label={this.createButtonLabel(character)} labelStyle={style.keyLabelStyle} style={style.key}/>
+          <RaisedButton label={this.createKeyLabel(element)} labelStyle={style.keyLabelStyle} style={style.key}/>
         </div>
       );
     }
   }
 
-  createButtonLabel(button) {
-    return typeof KeyInfo[button].label !== "undefined" ? KeyInfo[button].label : button;
+  createKeyLabel(key) {
+    return typeof KeyInfo[key].label !== "undefined" ? KeyInfo[key].label : key;
   }
 
   render() {
     return (
-      <div style={{flex: KeyInfo[this.props.character].dimension, minWidth: 0}}>
-          {this.createButton(this.props.character)}
+      <div style={{flex: KeyInfo[this.props.element].dimension, minWidth: 0}}>
+          {this.createKey(this.props.element)}
       </div>
     );
   }
 }
 
-export default Button;
+export default Key;

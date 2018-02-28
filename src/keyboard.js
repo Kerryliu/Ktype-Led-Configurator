@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import Button from './button.js';
+import Key from './key.js';
 import {RowLayout} from './layout';
 
 const style = {
@@ -16,7 +16,7 @@ const style = {
 
 class Keyboard extends React.Component {
   createRow(rowLayout) {
-    return rowLayout.map((character) => <Button key={character} character={character}/>);
+    return rowLayout.map((element) => <Key key={element} element={element}/>);
   }
 
   render() {
@@ -44,7 +44,6 @@ class Keyboard extends React.Component {
       </Paper>
     );
   }
-
 }
 
 export default Keyboard;
