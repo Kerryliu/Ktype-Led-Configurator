@@ -20,30 +20,26 @@ const style = {
   }
 };
 
-class Key extends React.Component {
-  createKey(element) {
-    if(typeof KeyInfo[element].ledId === "undefined") {
+const Key = ({element, keyInfo}) => (
+  <div style={{flex: KeyInfo[element].dimension, minWidth: 0}}>
+    {createKeycap(element)}
+  </div>
+);
+
+const createKeycap = (element) => {
+  if(typeof KeyInfo[element].ledId === "undefined") {
       return(<div/>);
-    } else {
-      return(
-        <div style={style.keyWrapper}>
-          <RaisedButton label={this.createKeyLabel(element)} labelStyle={style.keyLabelStyle} style={style.key}/>
-        </div>
-      );
-    }
-  }
-
-  createKeyLabel(key) {
-    return typeof KeyInfo[key].label !== "undefined" ? KeyInfo[key].label : key;
-  }
-
-  render() {
-    return (
-      <div style={{flex: KeyInfo[this.props.element].dimension, minWidth: 0}}>
-          {this.createKey(this.props.element)}
+  } else {
+    return(
+      <div style={style.keyWrapper}>
+        <RaisedButton label={createKeyLabel(element)} labelStyle={style.keyLabelStyle} style={style.key}/>
       </div>
     );
   }
 }
 
-export default Key;
+const createKeyLabel = (element) => {
+    return typeof KeyInfo[element].label !== "undefined" ? KeyInfo[element].label : element;
+}
+
+export default Key

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import Paper from 'material-ui/Paper';
-import Key from './key.js';
 import {RowLayout} from './layout';
+import Key from './key';
 
 const style = {
   keyboardPaper: {
@@ -14,36 +14,35 @@ const style = {
   },
 };
 
-class Keyboard extends React.Component {
-  createRow(rowLayout) {
-    return rowLayout.map((element) => <Key key={element} element={element}/>);
-  }
-
-  render() {
-    return(
-      <Paper style={style.keyboardPaper}>
-        <div style={style.row}>
-          {this.createRow(RowLayout["R0"])}
-        </div>
-        <div style={{height: "1.25vw"}}/>
-        <div style={style.row}>
-          {this.createRow(RowLayout["R1"])}
-        </div>
-        <div style={style.row}>
-          {this.createRow(RowLayout["R2"])}
-        </div>
-        <div style={style.row}>
-          {this.createRow(RowLayout["R3"])}
-        </div>
-        <div style={style.row}>
-          {this.createRow(RowLayout["R4"])}
-        </div>
-        <div style={style.row}>
-          {this.createRow(RowLayout["R5"])}
-        </div>
-      </Paper>
-    );
-  }
+const Keyboard = ({map}) => {
+  console.log(map.get("esc"));
+  return(
+    <Paper style={style.keyboardPaper}>
+      <div style={style.row}>
+        {createRow(RowLayout["R0"])}
+      </div>
+      <div style={{height: "1.25vw"}}/>
+      <div style={style.row}>
+        {createRow(RowLayout["R1"])}
+      </div>
+      <div style={style.row}>
+        {createRow(RowLayout["R2"])}
+      </div>
+      <div style={style.row}>
+        {createRow(RowLayout["R3"])}
+      </div>
+      <div style={style.row}>
+        {createRow(RowLayout["R4"])}
+      </div>
+      <div style={style.row}>
+        {createRow(RowLayout["R5"])}
+      </div>
+    </Paper>
+  );
 }
 
-export default Keyboard;
+const createRow = (rowLayout) => (
+  rowLayout.map((element) => <Key key={element} element={element}/>)
+);
+
+export default Keyboard

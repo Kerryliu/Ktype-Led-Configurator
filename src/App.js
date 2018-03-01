@@ -2,9 +2,27 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import logo from './logo.svg';
 import './App.css';
-import Keyboard from './keyboard.js';
+import {Map} from 'immutable';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import {KeyInfo, RowLayout, Keys} from './layout';
+import Keyboard from './keyboard';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      keyMap: this.createInitialKeyMap()
+    }
+  }
+
+  createInitialKeyMap() {
+    return Map(
+      Keys.reduce((o, key) => Object.assign(
+        o, {[key]: {"enabled": true, "color": null, isClicked: false}}), {}));
+  }
+
   render() {
     return (
       <MuiThemeProvider>
@@ -16,7 +34,7 @@ class App extends Component {
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
-          <Keyboard/>
+          <Keyboard map={this.state.keyMap}/>
         </div>
       </MuiThemeProvider>
     );
