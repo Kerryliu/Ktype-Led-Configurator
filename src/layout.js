@@ -168,3 +168,11 @@ export const RowLayout = {
     "rightControl", "rightControlToLeftSpacer", "left", "down", "right"
   ]
 }
+
+export const Keys = [
+  ...RowLayout["R0"],
+  ...RowLayout["R1"],
+  ...RowLayout["R2"],
+  ...RowLayout["R3"], 
+  ...RowLayout["R4"],
+  ...RowLayout["R5"]];
