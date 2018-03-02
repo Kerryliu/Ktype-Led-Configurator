@@ -4,9 +4,14 @@ import {RowLayout} from './layout';
 import Key from './key';
 
 const style = {
+  keyboardContainer: {
+    padding: 5,
+    overflowX: "auto",
+  },
   keyboardPaper: {
     width: "66vw",
-    margin: "auto"
+    margin: "auto",
+    minWidth: 800,
   },
   row: {
     display: "flex",
@@ -14,35 +19,36 @@ const style = {
   },
 };
 
-const Keyboard = ({map}) => {
-  console.log(map.get("esc"));
+const Keyboard = ({map, onClick}) => {
   return(
-    <Paper style={style.keyboardPaper}>
-      <div style={style.row}>
-        {createRow(RowLayout["R0"])}
-      </div>
-      <div style={{height: "1.25vw"}}/>
-      <div style={style.row}>
-        {createRow(RowLayout["R1"])}
-      </div>
-      <div style={style.row}>
-        {createRow(RowLayout["R2"])}
-      </div>
-      <div style={style.row}>
-        {createRow(RowLayout["R3"])}
-      </div>
-      <div style={style.row}>
-        {createRow(RowLayout["R4"])}
-      </div>
-      <div style={style.row}>
-        {createRow(RowLayout["R5"])}
-      </div>
-    </Paper>
+    <div style={style.keyboardContainer}>
+      <Paper style={style.keyboardPaper}>
+        <div style={style.row}>
+          {createRow(RowLayout["R0"], map, onClick)}
+        </div>
+        <div style={{height: "1.25vw"}}/>
+        <div style={style.row}>
+          {createRow(RowLayout["R1"], map, onClick)}
+        </div>
+        <div style={style.row}>
+          {createRow(RowLayout["R2"], map, onClick)}
+        </div>
+        <div style={style.row}>
+          {createRow(RowLayout["R3"], map, onClick)}
+        </div>
+        <div style={style.row}>
+          {createRow(RowLayout["R4"], map, onClick)}
+        </div>
+        <div style={style.row}>
+          {createRow(RowLayout["R5"], map, onClick)}
+        </div>
+      </Paper>
+    </div>
   );
 }
 
-const createRow = (rowLayout) => (
-  rowLayout.map((element) => <Key key={element} element={element}/>)
+const createRow = (rowLayout, map, onClick) => (
+  rowLayout.map((element) => <Key key={element} element={element} onClick={onClick} keyInfo={map.get(element)}/>)
 );
 
 export default Keyboard

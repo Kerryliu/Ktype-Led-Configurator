@@ -5,34 +5,39 @@ import {KeyInfo} from './layout';
 const style = {
   keyWrapper: {
     boxSizing: "border-box",
-    padding: "0.25vw",
+    margin: "0.25vmax",
   },
   key: {
-    minWidth: 0,
-    minHeight: 0,
     width: "100%",
-    height: "3vw",
+    height: "calc(2vmax + 15px)",
+    minWidth: 0,
   },
   keyLabelStyle: {
-    fontSize: "0.65vw",
+    fontSize: 12,
     padding: 0,
-    wordSpacing: "0.35vw"
+    margin: 0,
+    wordSpacing: 10
   }
 };
 
-const Key = ({element, keyInfo}) => (
+const Key = ({element, keyInfo, onClick}) => (
   <div style={{flex: KeyInfo[element].dimension, minWidth: 0}}>
-    {createKeycap(element)}
+    {createKeycap(element, keyInfo, onClick)}
   </div>
 );
 
-const createKeycap = (element) => {
+const createKeycap = (element, keyInfo, onClick) => {
   if(typeof KeyInfo[element].ledId === "undefined") {
       return(<div/>);
   } else {
     return(
       <div style={style.keyWrapper}>
-        <RaisedButton label={createKeyLabel(element)} labelStyle={style.keyLabelStyle} style={style.key}/>
+        <RaisedButton 
+        disabled={keyInfo.group !== null} //If there is a group assigned, disable button
+          label={createKeyLabel(element)}
+          labelStyle={style.keyLabelStyle} 
+          style={style.key} 
+          onClick={() => onClick(element)}/>
       </div>
     );
   }

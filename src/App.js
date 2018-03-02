@@ -3,23 +3,28 @@ import logo from './logo.svg';
 import './App.css';
 import {Map} from 'immutable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import {KeyInfo, RowLayout, Keys} from './layout';
+import {Keys} from './layout';
 import Keyboard from './keyboard';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyMap: this.createInitialKeyMap()
+      keyMap: this.createInitialKeyMap(),
     }
   }
 
   createInitialKeyMap() {
     return Map(
       Keys.reduce((o, key) => Object.assign(
-        o, {[key]: {"enabled": true, "color": null, isClicked: false}}), {}));
+        o, {[key]: {group: null, color: "white", isClicked: false, effect: "off"}}), {}));
+  }
+
+  updateKey = (key) => {
+    console.log(key);
+    this.setState(({keyMap}) => ({
+      keyMap: keyMap.update(key, () => ({group: "me", color: "red", isClicked: true}))
+    }));
   }
 
   render() {
@@ -33,7 +38,7 @@ class App extends Component {
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
-          <Keyboard map={this.state.keyMap}/>
+          <Keyboard map={this.state.keyMap} onClick={(key, updatedVales) => this.updateKey(key, updatedVales)}/>
         </div>
       </MuiThemeProvider>
     );
