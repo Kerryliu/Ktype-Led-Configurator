@@ -8,36 +8,49 @@ const style = {
     margin: "0.25vmax",
   },
   key: {
-    width: "100%",
-    height: "calc(2vmax + 15px)",
+    height: "calc(1.8vw + 20px)",
     minWidth: 0,
+    width: "100%",
   },
   keyLabelStyle: {
     fontSize: 12,
-    padding: 0,
     margin: 0,
+    padding: 0,
     wordSpacing: 10
   }
 };
 
-const Key = ({element, keyInfo, onClick}) => (
+const Key = ({element, keyInfo, ignoreGroup, onClick}) => (
   <div style={{flex: KeyInfo[element].dimension, minWidth: 0}}>
-    {createKeycap(element, keyInfo, onClick)}
+    {createKeycap(element, keyInfo, ignoreGroup, onClick)}
   </div>
 );
 
-const createKeycap = (element, keyInfo, onClick) => {
+const isDisabled = (group, ignoreGroup) => {
+  if(group === null) {
+    return false;
+  } else if(group === ignoreGroup) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+const createKeycap = (element, keyInfo, ignoreGroup, onClick) => {
   if(typeof KeyInfo[element].ledId === "undefined") {
       return(<div/>);
   } else {
     return(
       <div style={style.keyWrapper}>
         <RaisedButton 
-        disabled={keyInfo.group !== null} //If there is a group assigned, disable button
+          backgroundColor="#EEEEEE"
+          labelColor={keyInfo.color}
+          disabledLabelColor={keyInfo.color}
+          disabled={isDisabled(keyInfo.group, ignoreGroup)} //If there is a group assigned, disable button
           label={createKeyLabel(element)}
           labelStyle={style.keyLabelStyle} 
           style={style.key} 
-          onClick={() => onClick(element)}/>
+          onClick={() => onClick(element, "meow")}/>
       </div>
     );
   }
